@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Spoors;
 use App\Http\Requests\StoreSpoorsRequest;
 use App\Http\Requests\UpdateSpoorsRequest;
+use App\Models\Petaks;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SpoorsController extends Controller
 {
@@ -36,7 +39,31 @@ class SpoorsController extends Controller
      */
     public function store(StoreSpoorsRequest $request)
     {
-        //
+        auth()->user();
+        $validator = Validator::make($request->all(), [
+            'petaks_id' => 'required',
+            't_lama' => 'required',
+            't_baru' => 'required',
+            'l_lama' => 'required',
+            'l_baru' => 'required',
+        ]);
+  
+        if ($validator->fails()) {
+            return response()->json([
+                        'error' => $validator->errors()->all()
+                    ]);
+        }
+        $employee=Spoors::updateOrCreate([
+            'id' => $request->id
+           ],[
+            'petaks_id' => $request->petaks_id,
+            't_lama' => $request->t_lama,
+            't_baru' => $request->t_baru,
+            'l_lama' => $request->l_lama,
+            'l_baru' => $request->l_baru,
+        ]);
+        //return view('layouts.employees.index',['success' => 'Post created successfully.']);
+        return redirect('petak_spoor/'.$request->petaks_id)->with(['success', 'Berhasil menyimpan data']);
     }
 
     /**
@@ -83,8 +110,11 @@ class SpoorsController extends Controller
     {
         //
     }
-    public function spoor()
+    public function spoor(Request $request)
     {
-        return view('pages.spoor');
+        $id = $request->id;
+        $data=Petaks::where('id','=',$id)->first();
+        $spoor = Spoors::where('petaks_id','=',$id)->get();
+        return view('pages.spoor',['data'=>$data,'spoors'=>$spoor]);
     }
 }

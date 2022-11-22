@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Panahs;
 use App\Http\Requests\StorePanahsRequest;
 use App\Http\Requests\UpdatePanahsRequest;
+use App\Models\Petaks;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class PanahsController extends Controller
 {
@@ -34,9 +37,31 @@ class PanahsController extends Controller
      * @param  \App\Http\Requests\StorePanahsRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePanahsRequest $request)
+    public function store(Request $request)
     {
-        //
+        auth()->user();
+        $validator = Validator::make($request->all(), [
+            'hasil' => 'required',
+            'petaks_id' => 'required',
+            'geser' => 'required',
+            'hasil_baru' => 'required',
+        ]);
+  
+        if ($validator->fails()) {
+            return response()->json([
+                        'error' => $validator->errors()->all()
+                    ]);
+        }
+        $employee=Panahs::updateOrCreate([
+            'id' => $request->id
+           ],[
+            'petaks_id' => $request->petaks_id,
+            'hasil' => $request->hasil,
+            'geser' => $request->geser,
+            'hasil_baru' => $request->hasil_baru,
+        ]);
+        //return view('layouts.employees.index',['success' => 'Post created successfully.']);
+        return redirect('petak_panah/'.$request->petaks_id)->with(['success', 'Berhasil menyimpan data']);
     }
 
     /**
@@ -83,8 +108,11 @@ class PanahsController extends Controller
     {
         //
     }
-    public function panah()
+    public function panah(Request $request)
     {
-        return view('pages.panah');
+        $id = $request->id;
+        $data=Petaks::where('id','=',$id)->first();
+        $panah = Panahs::where('petaks_id','=',$id)->get();
+        return view('pages.panah',['data'=>$data,'panahs'=>$panah]);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AsetController;
 use App\Http\Controllers\BusursController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,19 +44,27 @@ Route::get('/', [LoginController::class, 'default'])->middleware('guest')->name(
 	Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
+	Route::get('/aset', [AsetController::class, 'aset'])->name('aset');
+	Route::post('/aset-store', [AsetController::class, 'store'])->name('aset.store');
+
 	Route::get('/resort', [ResortsController::class, 'resort'])->name('resort');
-	Route::get('/petak', [PetaksController::class, 'petak'])->name('petak');
-	Route::get('/petak_busur', [BusursController::class, 'busur'])->name('busur');
-	Route::get('/petak_panah', [PanahsController::class, 'panah'])->name('panah');
-	Route::get('/petak_spoor', [SpoorsController::class, 'spoor'])->name('spoor');
+	Route::post('/resort-store', [ResortsController::class, 'store'])->name('resort.store');
+	Route::post('/resort-destroy', [ResortsController::class, 'destroy'])->name('resort.destroy');
 
+	Route::get('/petak/{id}', [PetaksController::class, 'petak'])->name('petak');
+	Route::post('/petak-store', [PetaksController::class, 'store'])->name('petak.store');
 
-	Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
-	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
-	Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
-	Route::get('/profile-static', [PageController::class, 'profile'])->name('profile-static'); 
+	Route::get('/petak_busur/{id}', [BusursController::class, 'busur'])->name('busur');
+	Route::post('/petak_busur-store', [BusursController::class, 'store'])->name('busur.store');
+	
+	Route::get('/petak_panah/{id}', [PanahsController::class, 'panah'])->name('panah');
+	Route::post('/petak_panah-store', [PanahsController::class, 'store'])->name('panah.store');
+
+	Route::get('/petak_spoor/{id}', [SpoorsController::class, 'spoor'])->name('spoor');
+	Route::post('/petak_spoor-store', [SpoorsController::class, 'store'])->name('spoor.store');
+
 	Route::get('/sign-in-static', [PageController::class, 'signin'])->name('sign-in-static');
-	Route::get('/sign-up-static', [PageController::class, 'signup'])->name('sign-up-static'); 
+	Route::get('/about', [PageController::class, 'about'])->name('about');
 	Route::get('/{page}', [PageController::class, 'index'])->name('page');
 	Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 });

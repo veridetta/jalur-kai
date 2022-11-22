@@ -33,24 +33,12 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'profile-static' ? 'active' : '' }}" href="{{ route('profile-static') }}">
+                <a class="nav-link {{ Route::currentRouteName() == 'aset/*' ? 'active' : '' }}" href="{{ route('aset') }}" >
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-single-02  text-white text-sm opacity-10"></i>
+                        <i class="ni ni-bullet-list-67  text-white text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1 text-white">Data Aset</span>
-                </a>
-            </li>
-            <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 text-white">Account pages</h6>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ Route::currentRouteName() == 'profile-static' ? 'active' : '' }}" href="{{ route('profile-static') }}">
-                    <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-single-02  text-white text-sm opacity-10"></i>
-                    </div>
-                    <span class="nav-link-text ms-1 text-white">Arsip</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -63,6 +51,9 @@
                 </a>
             </li>
         </ul>
-        <p class="text-center"><a href="" class="btn btn-light bg-white"><i class="fa fa-sign-out"></i> Logout</a></p>
+        <form action="/logout" class="text-center" method="POST">
+            @csrf
+            <button class="btn btn-light bg-white text-center"><i class="fa fa-sign-out"></i> Logout</button>
+        </form>
     </div>
 </aside>

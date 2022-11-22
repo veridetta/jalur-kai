@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Resorts;
 use App\Http\Requests\StoreResortsRequest;
 use App\Http\Requests\UpdateResortsRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ResortsController extends Controller
 {
@@ -34,9 +36,28 @@ class ResortsController extends Controller
      * @param  \App\Http\Requests\StoreResortsRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreResortsRequest $request)
+    public function store(Request $request)
     {
-        //
+        auth()->user();
+        $validator = Validator::make($request->all(), [
+            'code_resorts' => 'required',
+            'name_resorts' => 'required',
+        ]);
+  
+        if ($validator->fails()) {
+            return response()->json([
+                        'error' => $validator->errors()->all()
+                    ]);
+        }
+       
+        $employee=Resorts::updateOrCreate([
+            'id' => $request->id
+           ],[
+            'code_resorts' => $request->code_resorts,
+            'name_resorts' => $request->name_resorts,
+        ]);
+        //return view('layouts.employees.index',['success' => 'Post created successfully.']);
+        return response()->json(['messages' => 'Data berhasil disimpan.','title'=>'Sukses','status'=>'success']);
     }
 
     /**
@@ -81,10 +102,13 @@ class ResortsController extends Controller
      */
     public function destroy(Resorts $resorts)
     {
-        //
+        $company = Resorts::where('id',$resorts->id)->delete();
+      
+        return response()->json(['messages' => 'Data berhasil dihapus.','title'=>'Sukses','status'=>'success']);
     }
     public function resort()
     {
-        return view('pages.resort');
+        $data=Resorts::all();
+        return view('pages.resort',['datas'=>$data]);
     }
 }
