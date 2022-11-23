@@ -11,6 +11,19 @@
     <hr class="horizontal dark mt-0">
     <div class=" w-auto " id="sidenav-collapse-main">
         <ul class="navbar-nav">
+            <?php $role=auth()->user()->role;?>
+            @if ($role=="super")
+            <li class="nav-item">
+                <a class="nav-link {{ Route::currentRouteName() == 'admin' ? 'active' : '' }}" href="{{ route('admin') }}">
+                    <div
+                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fa fa-users-group text-white text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1 text-white">Kelola Admin</span>
+                </a>
+            </li>
+            @endif
+            @if ($role=="admin")
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'home' ? 'active' : '' }}" href="{{ route('home') }}">
                     <div
@@ -50,8 +63,9 @@
                     <span class="nav-link-text ms-1 text-white">About</span>
                 </a>
             </li>
+            @endif
         </ul>
-        <form action="/logout" class="text-center" method="POST">
+        <form action="/logout" class="text-center mt-3" method="POST">
             @csrf
             <button class="btn btn-light bg-white text-center"><i class="fa fa-sign-out"></i> Logout</button>
         </form>

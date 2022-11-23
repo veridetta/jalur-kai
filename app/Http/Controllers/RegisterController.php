@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 // use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Facades\Request as FacadesRequest;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -24,5 +27,46 @@ class RegisterController extends Controller
         auth()->login($user);
 
         return redirect('/dashboard');
+    }
+    public function admin_store(FacadesRequest $request)
+    {
+        auth()->user();
+        $validator = Validator::make($request->all(), [
+            'username' => 'required',
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required',
+            'role' => 'required',
+        ]);
+  
+        if ($validator->fails()) {
+            return response()->json([
+                        'error' => $validator->errors()->all()
+                    ]);
+        }
+        if($request->password!==""){
+            $employee=User::updateOrCreate([
+                'id' => $request->id
+               ],[
+                'username' => $request->username,
+                'firstname' => $request->firstname,
+                'lastname' => $request->lastname,
+                'email' => $request->email,
+                'role' => $request->role,
+            ]);
+        }
+        
+        //return view('layouts.employees.index',['success' => 'Post created successfully.']);
+        return redirect('admin')->with(['success', 'Berhasil menyimpan data']);
+    }
+    public function admin(){
+        $data=User::all();
+        return view('pages.admin',['datas'=>$data]);
+    }
+    public function admin_destroy(FacadesRequest $resorts)
+    {
+        $company = User::where('id',$resorts->id)->delete();
+      
+        return redirect('admin')->with(['success', 'Berhasil menghapus data']);
     }
 }

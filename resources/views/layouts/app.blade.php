@@ -44,7 +44,7 @@
                 <main id="ps-remover" class="main-content" style="padding-left:15.125rem !important; margin-left:0px !important">
                     @yield('content')
                 </main>
-            @include('components.fixed-plugin')
+
         @endif
     @endauth
 

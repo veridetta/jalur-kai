@@ -47,6 +47,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/aset', [AsetController::class, 'aset'])->name('aset');
 	Route::post('/aset-store', [AsetController::class, 'store'])->name('aset.store');
 
+	Route::get('/admin', [RegisterController::class, 'admin'])->name('admin');
+	Route::post('/admin-store', [RegisterController::class, 'admin_store'])->name('admin.store');
+	Route::get('/admin-destroy/{id}', [RegisterController::class, 'admin_destroy'])->name('admin.destroy');
+
 	Route::get('/resort', [ResortsController::class, 'resort'])->name('resort');
 	Route::post('/resort-store', [ResortsController::class, 'store'])->name('resort.store');
 	Route::post('/resort-destroy', [ResortsController::class, 'destroy'])->name('resort.destroy');
