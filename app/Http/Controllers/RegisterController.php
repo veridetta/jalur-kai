@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 // use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Support\Facades\Validator;
 
@@ -28,7 +29,7 @@ class RegisterController extends Controller
 
         return redirect('/dashboard');
     }
-    public function admin_store(FacadesRequest $request)
+    public function admin_store(HttpRequest $request)
     {
         auth()->user();
         $validator = Validator::make($request->all(), [
@@ -45,6 +46,17 @@ class RegisterController extends Controller
                     ]);
         }
         if($request->password!==""){
+            $employee=User::updateOrCreate([
+                'id' => $request->id
+               ],[
+                'username' => $request->username,
+                'firstname' => $request->firstname,
+                'lastname' => $request->lastname,
+                'email' => $request->email,
+                'password' =>$request->password,
+                'role' => $request->role,
+            ]);
+        }else{
             $employee=User::updateOrCreate([
                 'id' => $request->id
                ],[
