@@ -99,7 +99,7 @@
                       </div>
                       <div class="mb-3">
                         <label for="password" class="form-label" id="pw">Password :</label>
-                        <input type="text" id="password" name="password" class="form-control" required="">
+                        <input type="text" id="password" name="password" class="form-control">
                       </div>
                       <div class="mb-3">
                         <label for="role" class="form-label">Tingkat :</label>
