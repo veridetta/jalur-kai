@@ -26,7 +26,7 @@
         </div>
         <div class="card shadow-lg mx-4 card-profile-center">
             <div class="card-header  bg-orange text-white">
-                <p class="card-title text-center h4">List Admin</p>
+                <p class="card-title text-center text-white h4"><i class="fa fa-users"></i> Admin</p>
             </div>
             <div class="card-body p-3" >
                 <div class="d-flex justify-self-center"style="min-height: 120px">
