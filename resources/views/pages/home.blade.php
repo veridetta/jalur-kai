@@ -21,7 +21,8 @@
     <div id="content" class="container mt-5">
         <p class="h5 text-center">STRUKTUR ORGANISASI KANTOR JALAN REL DAN JEMBATAN</p>
         <p class="h5 text-center"> DAOP 5 Purwokerto</p>
-        <div id="chart-container" class="text-center">
+        <div id="chart-container" class="col-12 text-center">
+            <img src="{{url('/images/bagan.png')}}" alt="" title="" class="w-80 img-responsive"/>
         </div>
     </div>
     <div class="col-12">
@@ -74,7 +75,7 @@
 @endsection
 @push('js')
 <script>
-    
+    /*
     $(function() {
         var datascource = {
         'name': 'MANAGER',
@@ -106,5 +107,6 @@
         });
         $('.orgchart').addClass('adj');
     });
+    */
 </script>
 @endpush

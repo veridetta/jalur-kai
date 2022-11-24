@@ -51,6 +51,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/admin-store', [RegisterController::class, 'admin_store'])->name('admin.store');
 	Route::get('/admin-destroy/{id}', [RegisterController::class, 'admin_destroy'])->name('admin.destroy');
 
+	Route::get('/image', [RegisterController::class, 'image'])->name('image');
+	Route::post('/orgz', [RegisterController::class, 'orgz'])->name('orgz');
+
 	Route::get('/resort', [ResortsController::class, 'resort'])->name('resort');
 	Route::post('/resort-store', [ResortsController::class, 'store'])->name('resort.store');
 	Route::post('/resort-destroy', [ResortsController::class, 'destroy'])->name('resort.destroy');
