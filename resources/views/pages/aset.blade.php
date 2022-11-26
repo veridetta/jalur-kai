@@ -33,14 +33,13 @@
                             <td>{{$no}}</td>
                             <td>{{$data->lintas}}</td>
                             <td>{{$data->koridor}}</td>
-                            <td>{{$data->lintas}}</td>
                             <td>{{$data->antara}}</td>
                             <td>{{$data->resort}}</td>
                             <td>{{$data->no_lengkung}}</td>
                             <td>{{$data->km_ml}}</td>
                             <td>{{$data->km_al}}</td>
                             <td>{{$data->jalur}}</td>
-                            <td>{{$data->rel}}</td>
+                            <td>{{$data->jenis}}</td>
                         </tr>
                         <?php $no++;?>
                     @endforeach

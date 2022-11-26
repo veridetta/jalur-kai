@@ -27,7 +27,7 @@
             </table>
         </div>
         <div class="d-flex justify-content-between">
-            <a href="#" class="btn btn-primary" onclick="add()">+ Data</a> <a href="#" onclick="pindah({{$data->id}})">Halaman Selanjutnya &#8594</a>
+            <a href="#" class="btn btn-primary" onclick="add()">+ Data</a> <div><a href="#" onclick="sebelum({{$data->id}})">&larr; Halaman Sebelumnya</a> <a href="#" onclick="pindah({{$data->id}})">Halaman Selanjutnya &#8594</a></div>
         </div>
     </div>
     <!-- Modal -->
@@ -91,6 +91,10 @@
   }
   function pindah(id){
     var url = "../petak_spoor/"+id;
+    location.href=url;
+  }
+  function sebelum(id){
+    var url = "../petak_busur/"+id;
     location.href=url;
   }
 </script>

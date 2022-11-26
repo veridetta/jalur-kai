@@ -1,14 +1,10 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/orgchart/3.1.3/css/jquery.orgchart.css" integrity="sha512-ND0T4MpnjKii0jtWYOcBBwkS1WrkgDbRwaHwyi/Llx6ovEI5NEx9CxmuB8c95Lv9H/LZ3USXTYtTYkDh9fNmaQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"  />
     <div class="container">
         <p class="h3 text-end"> SELL Maintenance</p>
         <p class="h6 text-end"> <a onClick="add()" href="javascript:void(0)"> <i class="fa fa-edit opacity-10"></i> Input Rencana</a></p>
-        <div class="alert alert-success alert-dismissible fade" id="alert">
-            <h4 class="alert-heading" id="alert_title">Sukses</h4>
-            <p id="alert_body">Berhasil input data</p>
-        </div>
         <div class="co-12">
             <table class="table table-striped">
                 <thead class="bg-primary text-white">
@@ -26,7 +22,7 @@
                             <td>{{$no}}</td>
                             <td>{{$data->code_resorts}}</td>
                             <td>{{$data->name_resorts}}</td>
-                            <td><a href="{{url('petak/'.$data->id)}}"><i class="fa fa-circle-info  text-dark opacity-10"></i></a> <a href="#" onclick="edit({{$data->id}},{{$data->code_resorts}},{{$data->name_resorts}})"><i class="fa fa-edit  text-success opacity-10"></i></a> <a href="#" onclick="delete({{$data->id}})"><i class="fa fa-trash  text-danger opacity-10"></i></td></a>
+                            <td><a href="{{url('petak/'.$data->id)}}"><i class="fa fa-circle-info  text-dark opacity-10"></i></a> <a href="#" onclick="edit('{{$data->id}}','{{$data->code_resorts}}','{{$data->name_resorts}}')"><i class="fa fa-edit  text-success opacity-10"></i></a> <a href="#" onclick="del('{{$data->id}}')"><i class="fa fa-trash  text-danger opacity-10"></i></td></a>
                         </tr>
                         <?php $no++;?>
                     @endforeach
@@ -74,14 +70,7 @@
     </div>
 @endsection
 @push('js')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"  />
 <script>
-    var url ="{{ url('resort-store') }}";
-    $.ajaxSetup({
-      headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
   function add(){
     $('#KaiForm').trigger("reset");
     $('#KaiTitle').html("Tambah Rencana");
@@ -89,18 +78,25 @@
     $('#id').val('');
     var url ="{{ url('resort-store') }}";
   }  
-  function edit(id, code, name){
-    $('#KaiTitle').html("Ubah Rencana");
-    $('#tambahModal').modal('show');
-    $('#id').val(id);
-    $('#code_resorts').val(code);
-    $('#name_resorts').val(name);
-    var url ="{{ url('resort-store') }}";
-  }  
-  function delete(id) {  
-    var url ="{{ url('resort-destroy') }}";
-    $('#id').val(id);
-  }
+  var url ="{{ url('resort-store') }}";
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    function edit(id, code, name){
+      $('#KaiTitle').html("Ubah Rencana");
+      $('#tambahModal').modal('show');
+      $('#id').val(id);
+      $('#code_resorts').val(code);
+      $('#name_resorts').val(name);
+      var url ="{{ url('resort-store') }}";
+    }  
+    function del(id) {  
+      var url ="{{ url('resort-destroy') }}";
+      $('#id').val(id);
+    }
+
   function hide(){
     $('#tambahModal').modal('hide');
   }
