@@ -64,7 +64,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="{{ route('sign-in-static') }}">
+                <a class="nav-link " href="{{ route('about') }}">
                     <div
                         class="icon icon-shape icon-sm text-white border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-single-copy-04 text-white text-sm opacity-10"></i>
